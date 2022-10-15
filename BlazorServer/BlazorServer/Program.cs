@@ -1,3 +1,4 @@
+//Entry point for the app, starts the server and where configure your configure the app services and middleware.
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using BlazorServer.Data;

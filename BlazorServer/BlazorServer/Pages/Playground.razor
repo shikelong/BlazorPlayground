@@ -1,0 +1,26 @@
+@page "/Playground"
+@using RandomNameGeneratorLibrary
+<h3>Playground</h3>
+
+<button class="btn btn-warning" @onclick="ThrowException">Throw Exception</button>
+
+<Hello Name="@name" ClassName="mt-4"></Hello>
+<button class="btn btn-warning" @onclick="GetRandomName">Get Random Name</button>
+
+@code {
+    
+    private string name = "";
+    private PersonNameGenerator personGenerator = new();
+    
+    private void ThrowException()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void GetRandomName()
+    {
+        name = personGenerator.GenerateRandomFirstAndLastName();
+    }
+    
+}
+
