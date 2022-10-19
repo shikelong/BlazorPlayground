@@ -1,0 +1,43 @@
+﻿@page "/todo"
+
+<h3 class="mb-5">Todo (@todos.Count(todo => todo.IsDone))</h3>
+
+<ul class="bg-light p-4 rounded">
+    @foreach (var todo in todos)
+    {
+        <li class="m-4 d-flex align-items-center gap-4">
+            <input type="checkbox" @bind="todo.IsDone" class="form-check-input"/>
+            <input @bind="todo.Title" class="form-control d-inline-block w-50"/>
+        </li>
+    }
+</ul>
+
+<input type="text" class="form-control w-50 mb-4" placeholder="type something todo..." @bind="_newTodo" @onkeydown="OnNewToDoInputKeydown"/>
+<button class="btn btn-primary" @onclick="AddToDo">Add To Do</button>
+
+@code {
+    private List<TodoItem> todos = new();
+    private string? _newTodo;
+
+    private void AddToDo()
+    {
+        if (!string.IsNullOrEmpty(_newTodo))
+        {
+            todos.Add(new TodoItem()
+            {
+                Title = _newTodo
+            });
+            _newTodo = string.Empty;
+        }  
+    }
+
+    private void OnNewToDoInputKeydown(KeyboardEventArgs eventArgs)
+    {
+        if (eventArgs.Key == "Enter")
+        {
+            AddToDo();
+        }
+    }
+
+}
+       
