@@ -7,10 +7,38 @@
 <Hello Name="@name" ClassName="mt-4"></Hello>
 <button class="btn btn-warning" @onclick="GetRandomName">Get Random Name</button>
 
+
+<h3 class="m-4">Data Binding</h3>
+<p>
+    <label>
+        Normal Blazor binding:
+        <input type="text" @bind="InputValue">
+    </label>
+</p>
+
+<p>
+    <label>
+        Demo of equivalent HTML binding:
+        <input type="text" value="@InputValue" @onchange="@(e => InputValue = e?.Value?.ToString())">
+    </label>
+</p>
+
+<p>
+    <label>
+        Binding on Input event:
+        <input type="text" @bind:event="oninput" @bind="@InputValue">
+    </label>
+</p>
+
+<p>
+    <code>InputValue:</code> @InputValue
+</p>
+
 @code {
     
     private string name = "";
     private PersonNameGenerator personGenerator = new();
+    private string? InputValue { get; set; }
     
     private void ThrowException()
     {
@@ -21,6 +49,7 @@
     {
         name = personGenerator.GenerateRandomFirstAndLastName();
     }
-    
+
+
 }
 

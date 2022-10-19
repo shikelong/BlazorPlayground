@@ -12,7 +12,7 @@
     }
 </ul>
 
-<input type="text" class="form-control w-50 mb-4" placeholder="type something todo..." @bind="_newTodo" @onkeydown="OnNewToDoInputKeydown"/>
+<input type="text" class="form-control w-50 mb-4" placeholder="type something todo..." @bind="_newTodo" @bind:event="oninput" @onkeydown="OnNewToDoInputKeydown"/>
 <button class="btn btn-primary" @onclick="AddToDo">Add To Do</button>
 
 @code {
@@ -21,6 +21,7 @@
 
     private void AddToDo()
     {
+        Console.WriteLine("_newTodo is:" + _newTodo);
         if (!string.IsNullOrEmpty(_newTodo))
         {
             todos.Add(new TodoItem()
@@ -33,6 +34,7 @@
 
     private void OnNewToDoInputKeydown(KeyboardEventArgs eventArgs)
     {
+        Console.WriteLine("the keydown was called with: " + eventArgs.Key);
         if (eventArgs.Key == "Enter")
         {
             AddToDo();
