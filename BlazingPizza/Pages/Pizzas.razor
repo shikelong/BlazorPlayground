@@ -1,0 +1,52 @@
+@using BlazingPizza.Data;
+@using Pizza = BlazingPizza.Data.Pizza
+@* this adds the services to this component add initiates an instance of it. *@
+@inject PizzaService PizzaSvc;
+@page "/pizzas"
+
+<h1>Choose your pizza</h1>
+
+<p>We have all these delicious recipes:</p>
+
+@if (_todaysPizzas == null)
+{
+    <p>We're finding out what pizzas are available today...</p>
+}
+else
+{
+    <table>
+        <thead>
+        <tr>
+            <th>Pizza Name</th>
+            <th>Description</th>
+            <th>Vegetarian?</th>
+            <th>Vegan?</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var pizza in _todaysPizzas)
+        {
+            <tr>
+                <td>@pizza.Name</td>
+                <td>@pizza.Description</td>
+                <td>@pizza.Vegetarian</td>
+                <td>@pizza.Vegan</td>
+                <td>@pizza.Price</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private List<Pizza> _todaysPizzas;
+
+    //This event fires when the component's initialization is complete and it has received initial parameters but before the page is rendered and displayed to the user.
+    protected override async void OnInitialized()
+    {
+        _todaysPizzas = await PizzaSvc.GetPizzasAsync();
+    }
+
+}
